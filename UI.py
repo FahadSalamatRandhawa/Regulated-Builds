@@ -37,8 +37,8 @@ demo_questions = [
 
 
 # === Setup your API keys via Streamlit secrets or environment variables ===
-SUPABASE_URL = "https://gehuxakkuetdlgceasra.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlaHV4YWtrdWV0ZGxnY2Vhc3JhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NDE2MjEwMywiZXhwIjoyMDY5NzM4MTAzfQ.Damoyw6chb7UoJtTT4F6cfWrUMg-CBdaQyelXpGemJk"
+SUPABASE_URL = st.secrets['SUPABASE_URL']
+SUPABASE_KEY = st.secrets['SUPABASE_KEY']
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 model = SentenceTransformer("intfloat/e5-base-v2")
@@ -233,9 +233,9 @@ Answer:
     with st.spinner("Generating a response..."):
         try:
             if answer_mode == "Regulated Builds":
-                genai.configure(api_key="AIzaSyA_jckDxcmimFYHUDobkoypVRkcIvm2K_g")
+                genai.configure(api_key=st.secrets['GEMINI_KEY_1'])
             else:
-                genai.configure(api_key="AIzaSyAmYPsh3b25xbznKV0giKUEWl0BRZxIQjM")
+                genai.configure(api_key=st.secrets['GEMINI_KEY_2'])
             gemini_response = gemini.generate_content(prompt)
             answer = gemini_response.text.strip()
             st.subheader("💬 Answer")
